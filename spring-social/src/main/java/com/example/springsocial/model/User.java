@@ -1,4 +1,6 @@
 package com.example.springsocial.model;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
@@ -24,6 +26,7 @@ public class User {
     @Column(nullable = false)
     private Boolean emailVerified = false;
 
+    @JsonIgnore
     private String password;
 
     @NotNull

@@ -1,22 +1,23 @@
 package com.example.springsocial.controller;
 
-import com.example.springsocial.payload.UserProfile;
+import com.example.springsocial.exception.ResourceNotFoundException;
+import com.example.springsocial.model.User;
+import com.example.springsocial.repository.UserRepository;
 import com.example.springsocial.security.CurrentUser;
 import com.example.springsocial.security.UserPrincipal;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class UserController {
 
+    @Autowired
+    private UserRepository userRepository;
+
     @GetMapping("/user/me")
-    public UserProfile getCurrentUser(@CurrentUser UserPrincipal userPrincipal) {
-        UserProfile userProfile = new UserProfile();
-
-        userProfile.setName(userPrincipal.getName());
-        userProfile.setEmail(userPrincipal.getEmail());
-        userProfile.setImageUrl(userPrincipal.getImageUrl());
-
-        return userProfile;
+    public User getCurrentUser(@CurrentUser UserPrincipal userPrincipal) {
+        return userRepository.findById(userPrincipal.getId())
+                .orElseThrow(() -> new ResourceNotFoundException("User", "id", userPrincipal.getId()));
     }
 }
