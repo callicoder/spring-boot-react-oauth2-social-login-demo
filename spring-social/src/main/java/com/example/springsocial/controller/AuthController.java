@@ -1,15 +1,14 @@
 package com.example.springsocial.controller;
 
+import com.example.springsocial.exception.BadRequestException;
 import com.example.springsocial.model.AuthProvider;
 import com.example.springsocial.model.User;
-import com.example.springsocial.payload.ApiResponse;
 import com.example.springsocial.payload.AuthResponse;
 import com.example.springsocial.payload.LoginRequest;
 import com.example.springsocial.payload.SignUpRequest;
 import com.example.springsocial.repository.UserRepository;
 import com.example.springsocial.security.TokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -57,8 +56,7 @@ public class AuthController {
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignUpRequest signUpRequest) {
         if(userRepository.existsByEmail(signUpRequest.getEmail())) {
-            return new ResponseEntity(new ApiResponse(false, "Email Address already in use!"),
-                    HttpStatus.BAD_REQUEST);
+            throw new BadRequestException("Email address already in use.");
         }
 
         // Creating user's account
@@ -73,11 +71,10 @@ public class AuthController {
         User result = userRepository.save(user);
 
         URI location = ServletUriComponentsBuilder
-                .fromCurrentContextPath().path("/api/users/{username}")
+                .fromCurrentContextPath().path("/user/me")
                 .buildAndExpand(result.getId()).toUri();
 
-        return ResponseEntity.created(location)
-                .body(new ApiResponse(true, "User registered successfully"));
+        return ResponseEntity.created(location).build();
     }
 
 }

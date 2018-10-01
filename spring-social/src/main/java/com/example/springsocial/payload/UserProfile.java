@@ -3,6 +3,7 @@ package com.example.springsocial.payload;
 public class UserProfile {
     private String name;
     private String email;
+    private String imageUrl;
 
     public String getName() {
         return name;
@@ -18,5 +19,13 @@ public class UserProfile {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }
