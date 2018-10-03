@@ -1,5 +1,6 @@
 package com.example.springsocial.security.oauth2.user;
 
+import com.example.springsocial.exception.OAuth2AuthenticationProcessingException;
 import com.example.springsocial.model.AuthProvider;
 
 import java.util.Map;
@@ -14,7 +15,7 @@ public class OAuth2UserInfoFactory {
         } else if (registrationId.equalsIgnoreCase(AuthProvider.github.toString())) {
             return new GithubOAuth2UserInfo(attributes);
         } else {
-            throw new RuntimeException("Sorry! Login with " + registrationId + " is not supported yet.");
+            throw new OAuth2AuthenticationProcessingException("Sorry! Login with " + registrationId + " is not supported yet.");
         }
     }
 }
