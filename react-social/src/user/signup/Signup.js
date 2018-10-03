@@ -6,7 +6,7 @@ class Signup extends Component {
     render() {
         return (
             <div className="container signup-container">
-                <h1 className="page-title">Login</h1>
+                <h1 className="page-title">Signup</h1>
                 <div className="signup-content">
                     <SocialSignup />
                     <div className="or-separator">
