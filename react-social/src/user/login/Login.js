@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 import './Login.css';
-import { GOOGLE_AUTH_URL, FACEBOOK_AUTH_URL, GITHUB_AUTH_URL } from '../../constants';
+import { GOOGLE_AUTH_URL, FACEBOOK_AUTH_URL, GITHUB_AUTH_URL, ACCESS_TOKEN } from '../../constants';
+import { login } from '../../util/APIUtils';
+import fbLogo from '../../img/fb-logo.png';
+import googleLogo from '../../img/google-logo.png';
+import githubLogo from '../../img/github-logo.png';
 
 class Login extends Component {
     render() {
         return (
             <div className="container login-container">
-                <h1 className="page-title">Login</h1>
                 <div className="login-content">
                     <SocialLogin />
                     <div className="or-separator">
@@ -24,9 +27,12 @@ class SocialLogin extends Component {
         console.log(GOOGLE_AUTH_URL);
         return (
             <div className="social-login">
-                <a className="btn social-btn google" href={GOOGLE_AUTH_URL}>Log in with Google</a>
-                <a className="btn social-btn facebook" href={FACEBOOK_AUTH_URL}>Log in with Facebook</a>
-                <a className="btn social-btn github" href={GITHUB_AUTH_URL}>Log in with Github</a>
+                <a className="btn btn-block social-btn google" href={GOOGLE_AUTH_URL}>
+                    <img src={googleLogo} /> Log in with Google</a>
+                <a className="btn btn-block social-btn facebook" href={FACEBOOK_AUTH_URL}>
+                    <img src={fbLogo} /> Log in with Facebook</a>
+                <a className="btn btn-block social-btn github" href={GITHUB_AUTH_URL}>
+                    <img src={githubLogo} /> Log in with Github</a>
             </div>
         );
     }
@@ -36,22 +42,58 @@ class SocialLogin extends Component {
 class LoginForm extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            email: '',
+            password: ''
+        };
+        this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    handleInputChange(event) {
+        const target = event.target;
+        const inputName = target.name;        
+        const inputValue = target.value;
+
+        this.setState({
+            [inputName] : inputValue
+        });        
     }
 
     handleSubmit(event) {
         event.preventDefault();   
-        this.props.form.validateFields((err, values) => {
-            if (!err) {
-                
+
+        const loginRequest = Object.assign({}, this.state);
+
+        login(loginRequest)
+        .then(response => {
+            localStorage.setItem(ACCESS_TOKEN, response.accessToken);
+            this.props.history.push("/");
+        }).catch(error => {
+            if(error.status === 401) {
+
+            } else {
+
             }
         });
     }
-
+    
     render() {
         return (
-            <form>
-
+            <form onSubmit={this.handleSubmit}>
+                <div className="form-item">
+                    <input type="email" name="email" 
+                        className="form-control" placeholder="Email"
+                        value={this.state.email} onChange={this.handleInputChange} required/>
+                </div>
+                <div className="form-item">
+                    <input type="password" name="password" 
+                        className="form-control" placeholder="Password"
+                        value={this.state.password} onChange={this.handleInputChange} required/>
+                </div>
+                <div className="form-item">
+                    <button type="submit" className="btn btn-block btn-primary">Login</button>
+                </div>
             </form>                    
         );
     }
