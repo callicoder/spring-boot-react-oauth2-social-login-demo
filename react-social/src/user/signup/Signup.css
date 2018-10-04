@@ -2,6 +2,7 @@
     min-height: 100vh;
     overflow: hidden;
     background-color: #edecec;
+    text-align: center;
 }
 
 .signup-container:before {

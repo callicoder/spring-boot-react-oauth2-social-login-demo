@@ -1,0 +1,17 @@
+.app-header {
+    height: 65px;
+    border-bottom: 1px solid #e8e8e8;
+}
+
+.app-title {
+    line-height: 65px;
+    vertical-align: middle;
+}
+
+.app-branding {
+    float: left;
+}
+
+.app-options {
+    float: right;
+}

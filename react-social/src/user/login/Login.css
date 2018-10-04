@@ -1,6 +1,7 @@
 .login-container {
     min-height: 100vh;
     background-color: #edecec;
+    text-align: center;
 }
 
 .login-container:before {

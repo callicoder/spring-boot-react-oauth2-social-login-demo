@@ -10,7 +10,7 @@ import githubLogo from '../../img/github-logo.png';
 class Signup extends Component {
     render() {
         return (
-            <div className="container signup-container">
+            <div className="signup-container">
                 <div className="signup-content">
                     <h1 className="signup-title">Signup with SpringSocial</h1>
                     <SocialSignup />
