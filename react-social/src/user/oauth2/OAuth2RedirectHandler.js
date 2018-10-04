@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { ACCESS_TOKEN } from '../../constants';
+import { Redirect } from 'react-router-dom'
 
 class OAuth2RedirectHandler extends Component {
     constructor(props) {
@@ -20,16 +21,16 @@ class OAuth2RedirectHandler extends Component {
 
         if(token) {
             localStorage.setItem(ACCESS_TOKEN, token);
-            this.props.history.push("/");
+            return <Redirect to={{
+                pathname: "/",
+                state: { from: this.props.location }
+            }}/>; 
         } else {
-            this.props.history.push("/login");
+            return <Redirect to={{
+                pathname: "/login",
+                state: { from: this.props.location }
+            }}/>; 
         }
-        
-        return (
-            <div>
-                Logging you in...        
-            </div>
-        );
     }
 }
 

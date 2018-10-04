@@ -4,6 +4,7 @@ import {
   Switch
 } from 'react-router-dom';
 import AppHeader from '../common/AppHeader';
+import Home from '../home/Home';
 import Login from '../user/login/Login';
 import Signup from '../user/signup/Signup';
 import Profile from '../user/profile/Profile';
@@ -11,6 +12,8 @@ import OAuth2RedirectHandler from '../user/oauth2/OAuth2RedirectHandler';
 import NotFound from '../common/NotFound';
 import LoadingIndicator from '../common/LoadingIndicator';
 import { getCurrentUser } from '../util/APIUtils';
+import { ACCESS_TOKEN } from '../constants';
+import PrivateRoute from '../common/PrivateRoute';
 
 class App extends Component {
   constructor(props) {
@@ -45,10 +48,14 @@ class App extends Component {
   }
 
   handleLogout() {
-
+    localStorage.removeItem(ACCESS_TOKEN);
+    this.setState({
+      authenticated: false,
+      currentUser: null
+    });
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.loadCurrentlyLoggedInUser();
   }
 
@@ -60,18 +67,18 @@ class App extends Component {
     return (
       <div className="app">
         <div className="app-header">
-          <AppHeader />
+          <AppHeader authenticated={this.state.authenticated} onLogout={this.handleLogout} />
         </div>
         <div className="app-body">
           <Switch>
-            <Route exact path="/" 
-                render={(props) => this.state.authenticated ? 
-                  <Profile {...props} /> : 
-                  <Login {...props} /> }>
-            </Route>           
+            <Route exact path="/" component={Home}></Route>           
+            <PrivateRoute path="/profile" authenticated={this.state.authenticated}
+              component={Profile}></PrivateRoute>
+            <Route path="/login"
+              render={(props) => <Login authenticated={this.state.authenticated} {...props} />}></Route>
+            <Route path="/signup"
+              render={(props) => <Signup authenticated={this.state.authenticated} {...props} />}></Route>
             <Route path="/oauth2/redirect" component={OAuth2RedirectHandler}></Route>  
-            <Route path="/login" component={Login}></Route>
-            <Route path="/signup" component={Signup}></Route>
             <Route component={NotFound}></Route>
           </Switch>
         </div>

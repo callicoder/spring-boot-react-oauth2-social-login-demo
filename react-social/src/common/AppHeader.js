@@ -3,10 +3,6 @@ import { Link } from 'react-router-dom';
 import './AppHeader.css';
 
 class AppHeader extends Component {
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         return (
             <header className="app-header">
@@ -15,7 +11,27 @@ class AppHeader extends Component {
                         <Link to="/" className="app-title">Spring Social</Link>
                     </div>
                     <div className="app-options">
-                        <a className="btn" onClick={this.props.onLogout}>Logout</a>
+                        <nav className="app-nav">
+                                { this.props.authenticated ? (
+                                    <ul>
+                                        <li>
+                                            <Link to="/profile">Profile</Link>
+                                        </li>
+                                        <li>
+                                            <a onClick={this.props.onLogout}>Logout</a>
+                                        </li>
+                                    </ul>
+                                ): (
+                                    <ul>
+                                        <li>
+                                            <Link to="/login">Login</Link>        
+                                        </li>
+                                        <li>
+                                            <Link to="/signup">Signup</Link>        
+                                        </li>
+                                    </ul>
+                                )}
+                        </nav>
                     </div>
                 </div>
             </header>

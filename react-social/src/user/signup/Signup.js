@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './Signup.css';
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import { GOOGLE_AUTH_URL, FACEBOOK_AUTH_URL, GITHUB_AUTH_URL } from '../../constants';
 import { signup } from '../../util/APIUtils';
 import fbLogo from '../../img/fb-logo.png';
@@ -9,6 +9,14 @@ import githubLogo from '../../img/github-logo.png';
 
 class Signup extends Component {
     render() {
+        if(this.props.authenticated) {
+            return <Redirect
+                to={{
+                pathname: "/",
+                state: { from: this.props.location }
+            }}/>;            
+        }
+
         return (
             <div className="signup-container">
                 <div className="signup-content">
@@ -17,7 +25,7 @@ class Signup extends Component {
                     <div className="or-separator">
                         <span className="or-text">OR</span>
                     </div>
-                    <SignupForm />
+                    <SignupForm {...this.props} />
                     <span className="login-link">Already have an account? <Link to="/login">Login!</Link></span>
                 </div>
             </div>
@@ -31,11 +39,11 @@ class SocialSignup extends Component {
         return (
             <div className="social-signup">
                 <a className="btn btn-block social-btn google" href={GOOGLE_AUTH_URL}>
-                    <img src={googleLogo} /> Sign up with Google</a>
+                    <img src={googleLogo} alt="Google" /> Sign up with Google</a>
                 <a className="btn btn-block social-btn facebook" href={FACEBOOK_AUTH_URL}>
-                    <img src={fbLogo} /> Sign up with Facebook</a>
+                    <img src={fbLogo} alt="Facebook" /> Sign up with Facebook</a>
                 <a className="btn btn-block social-btn github" href={GITHUB_AUTH_URL}>
-                    <img src={githubLogo} /> Sign up with Github</a>
+                    <img src={githubLogo} alt="Github" /> Sign up with Github</a>
             </div>
         );
     }

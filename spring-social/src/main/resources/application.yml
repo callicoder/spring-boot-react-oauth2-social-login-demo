@@ -49,8 +49,8 @@ app:
   oauth2:
     # After successfully authenticating with the OAuth2 Provider,
     # we'll be generating an auth token for the user and sending the token to the
-    # redirectUri mentioned by the client in the oauth2/authorize request.
-    # We're not using cookies because they won't work in mobile clients.
+    # redirectUri mentioned by the client in the /oauth2/authorize request.
+    # We're not using cookies because they won't work well in mobile clients.
     authorizedRedirectUris:
       - http://localhost:3000/oauth2/redirect
       - myandroidapp://oauth2/redirect
