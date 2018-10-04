@@ -22,6 +22,7 @@ input[type="radio"] {
 body {
   margin: 0;
   padding: 0;
+  font-size: 16px;
   font-weight: 400;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: rgba(0,0,0,.80);

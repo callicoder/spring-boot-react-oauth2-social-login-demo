@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './Login.css';
 import { GOOGLE_AUTH_URL, FACEBOOK_AUTH_URL, GITHUB_AUTH_URL, ACCESS_TOKEN } from '../../constants';
 import { login } from '../../util/APIUtils';
+import { Link } from 'react-router-dom'
 import fbLogo from '../../img/fb-logo.png';
 import googleLogo from '../../img/google-logo.png';
 import githubLogo from '../../img/github-logo.png';
@@ -11,11 +12,13 @@ class Login extends Component {
         return (
             <div className="container login-container">
                 <div className="login-content">
+                    <h1 className="login-title">Login to SpringSocial</h1>
                     <SocialLogin />
                     <div className="or-separator">
                         <span className="or-text">OR</span>
                     </div>
                     <LoginForm />
+                    <span className="signup-link">New user? <Link to="/signup">Sign up!</Link></span>
                 </div>
             </div>
         );

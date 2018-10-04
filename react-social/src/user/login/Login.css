@@ -20,7 +20,7 @@
     border-radius: 2px;
     width: 500px;
     display: inline-block;
-    margin-top: 80px;
+    margin-top: 60px;
     vertical-align: middle;
     position: relative;    
     padding: 35px;
@@ -45,4 +45,17 @@
 .social-btn.github img {
     height: 24px;
     margin-left: 3px;
+}
+
+.signup-link {
+    color: rgba(0, 0, 0, 0.65);
+    font-size: 14px;
+}
+
+.login-title {
+    font-size: 1.5em;
+    font-weight: 500;
+    margin-top: 0;
+    margin-bottom: 30px;
+    color: rgba(0, 0, 0, 0.65);
 }

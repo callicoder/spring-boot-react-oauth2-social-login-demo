@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './Signup.css';
+import { Link } from 'react-router-dom'
 import { GOOGLE_AUTH_URL, FACEBOOK_AUTH_URL, GITHUB_AUTH_URL } from '../../constants';
 import { signup } from '../../util/APIUtils';
 import fbLogo from '../../img/fb-logo.png';
@@ -11,11 +12,13 @@ class Signup extends Component {
         return (
             <div className="container signup-container">
                 <div className="signup-content">
+                    <h1 className="signup-title">Signup with SpringSocial</h1>
                     <SocialSignup />
                     <div className="or-separator">
                         <span className="or-text">OR</span>
                     </div>
                     <SignupForm />
+                    <span className="login-link">Already have an account? <Link to="/login">Login!</Link></span>
                 </div>
             </div>
         );
