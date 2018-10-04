@@ -3,6 +3,7 @@ import {
   Route,
   Switch
 } from 'react-router-dom';
+import AppHeader from '../common/AppHeader';
 import Login from '../user/login/Login';
 import Signup from '../user/signup/Signup';
 import Profile from '../user/profile/Profile';
@@ -57,7 +58,11 @@ class App extends Component {
     }
 
     return (
-      <div className="App">
+      <div className="app">
+        <div className="app-header">
+          <AppHeader />
+        </div>
+        <div className="app-body">
           <Switch>
             <Route exact path="/" 
                 render={(props) => this.state.authenticated ? 
@@ -69,6 +74,7 @@ class App extends Component {
             <Route path="/signup" component={Signup}></Route>
             <Route component={NotFound}></Route>
           </Switch>
+        </div>
       </div>
     );
   }

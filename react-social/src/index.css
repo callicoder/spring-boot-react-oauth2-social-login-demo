@@ -78,8 +78,8 @@ a:hover {
   padding: 0 20px;
   font-size: 14px;
   border-radius: 4px;
-  height: 40px;
-  line-height: 40px;
+  height: 45px;
+  line-height: 45px;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -164,9 +164,9 @@ a:hover {
   display: inline-block;
   padding: 4px 11px;
   width: 100%;
-  height: 40px;
+  height: 45px;
   font-size: 0.87em;
-  line-height: 40px;
+  line-height: 45px;
   color: rgba(0,0,0,.80);
   background-color: #fff;
   background-image: none;
@@ -217,8 +217,8 @@ a:hover {
   padding: 10px 0;
   position: relative;
   display: block;
-  margin-top: 30px;
-  margin-bottom: 40px;
+  margin-top: 20px;
+  margin-bottom: 30px;
   font-size: 1em;    
 }
 

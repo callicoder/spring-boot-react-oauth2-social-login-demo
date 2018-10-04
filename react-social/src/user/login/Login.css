@@ -1,19 +1,7 @@
 .login-container {
-    min-height: 100vh;
-    background-color: #edecec;
     text-align: center;
 }
 
-.login-container:before {
-    height: 50%;
-    width: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    background: #00bcd4;
-    content: "";
-    z-index: 0;    
-}
 
 .login-content {
     background: #fff;
@@ -21,7 +9,7 @@
     border-radius: 2px;
     width: 500px;
     display: inline-block;
-    margin-top: 60px;
+    margin-top: 30px;
     vertical-align: middle;
     position: relative;    
     padding: 35px;
@@ -36,6 +24,10 @@
     height: 32px;
     float: left;
     margin-top: 10px;
+}
+
+.social-btn.google {
+    margin-top: 7px;
 }
 
 .social-btn.facebook img {

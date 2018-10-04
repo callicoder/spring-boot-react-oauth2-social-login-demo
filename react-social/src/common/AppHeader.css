@@ -1,11 +1,15 @@
 .app-header {
-    height: 65px;
+    height: 60px;
     border-bottom: 1px solid #e8e8e8;
+    background-color: #fff;
+    position: relative;
+    z-index: 10;
 }
 
 .app-title {
-    line-height: 65px;
+    line-height: 60px;
     vertical-align: middle;
+    font-size: 1.2em;
 }
 
 .app-branding {
