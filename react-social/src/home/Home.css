@@ -1,15 +1,15 @@
 .home-container {
     text-align: center;
-    padding-top: 30px;
+    padding-top: 60px;
     height: calc(100vh - 60px);
     overflow: hidden;
     position: relative;
 }
 
 .home-title {
-    font-size: 26px;
+    font-size: 25px;
     font-weight: 400;
-    color: rgba(0,0,0,0.65);
+    color: rgba(0,0,0,0.70);
     margin-top: 50px; 
 }
 
