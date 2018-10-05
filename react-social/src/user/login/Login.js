@@ -19,7 +19,7 @@ class Login extends Component {
                     pathname: this.props.location.pathname,
                     state: {}
                 });
-            }, 300);
+            }, 100);
         }
     }
     
