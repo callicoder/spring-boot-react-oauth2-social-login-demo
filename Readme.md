@@ -1,6 +1,6 @@
 # Spring Boot React OAuth2 Social Login Demo
 
-<img src="screenshot.png" alt="App Screenshot" style="box-shadow: 0 3px 10px rgba(0,0,0,.2);" />
+![App Screenshot](screenshot.png)
 
 ## Setting up the Backend Server (spring-social)
 
