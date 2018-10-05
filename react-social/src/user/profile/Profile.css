@@ -1,0 +1,21 @@
+.profile-container {
+    padding-top: 30px;
+}
+
+.profile-info {
+    text-align: center;
+}
+
+.profile-info .profile-avatar img {
+    border-radius: 50%;
+    max-width: 250px;
+}
+
+.profile-info .profile-name {
+    font-weight: 500;
+    font-size: 18px;
+}
+
+.profile-info .profile-email {
+    font-weight: 400;
+}

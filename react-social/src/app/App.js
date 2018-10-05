@@ -14,6 +14,7 @@ import LoadingIndicator from '../common/LoadingIndicator';
 import { getCurrentUser } from '../util/APIUtils';
 import { ACCESS_TOKEN } from '../constants';
 import PrivateRoute from '../common/PrivateRoute';
+import './App.css';
 
 class App extends Component {
   constructor(props) {
@@ -66,13 +67,13 @@ class App extends Component {
 
     return (
       <div className="app">
-        <div className="app-header">
+        <div className="app-top-box">
           <AppHeader authenticated={this.state.authenticated} onLogout={this.handleLogout} />
         </div>
         <div className="app-body">
           <Switch>
             <Route exact path="/" component={Home}></Route>           
-            <PrivateRoute path="/profile" authenticated={this.state.authenticated}
+            <PrivateRoute path="/profile" authenticated={this.state.authenticated} currentUser={this.state.currentUser}
               component={Profile}></PrivateRoute>
             <Route path="/login"
               render={(props) => <Login authenticated={this.state.authenticated} {...props} />}></Route>

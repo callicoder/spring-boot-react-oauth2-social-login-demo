@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import oAuth2Logo from '../img/oauth2-logo.png';
 import './Home.css';
 
 class Home extends Component {
@@ -7,8 +6,22 @@ class Home extends Component {
         return (
             <div className="home-container">
                 <div className="container">
-                    <img src={oAuth2Logo} height={300} />
-                    <h1>Spring Boot React OAuth2 Social Login Demo</h1>
+                    <div className="graf-bg-container">
+                        <div className="graf-layout">
+                            <div className="graf-circle"></div>
+                            <div className="graf-circle"></div>
+                            <div className="graf-circle"></div>
+                            <div className="graf-circle"></div>
+                            <div className="graf-circle"></div>
+                            <div className="graf-circle"></div>
+                            <div className="graf-circle"></div>
+                            <div className="graf-circle"></div>
+                            <div className="graf-circle"></div>
+                            <div className="graf-circle"></div>
+                            <div className="graf-circle"></div>
+                        </div>
+                    </div>
+                    <h1 className="home-title">Spring Boot React OAuth2 Social Login Demo</h1>
                 </div>
             </div>
         )

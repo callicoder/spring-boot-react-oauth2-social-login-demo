@@ -1,7 +1,5 @@
 .app-header {
     height: 60px;
-    border-bottom: 1px solid #e8e8e8;
-    background-color: #fff;
     position: relative;
     z-index: 10;
 }
@@ -10,6 +8,11 @@
     line-height: 60px;
     vertical-align: middle;
     font-size: 1.2em;
+    color: rgba(0,0,0,0.80);
+}
+
+.app-title:hover {
+    color: rgba(0,0,0,0.80);
 }
 
 .app-branding {
@@ -37,4 +40,9 @@
     vertical-align: middle;
     padding-left: 15px;
     padding-right: 15px;
+    color: rgba(0,0,0,0.80);
+}
+
+.app-nav ul li a:hover {
+    color: rgba(0,0,0,0.80);
 }

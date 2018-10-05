@@ -1,4 +1,270 @@
 .home-container {
     text-align: center;
-    padding-top: 30px; 
+    padding-top: 30px;
+    height: calc(100vh - 60px);
+    overflow: hidden;
+    position: relative;
+}
+
+.home-title {
+    font-size: 24px;
+    font-weight: 400;
+    color: rgba(0,0,0,0.65);
+    margin-top: 50px; 
+}
+
+.graf-bg-container {
+    width: 100%;
+    height: 310px;
+    overflow: hidden;
+    perspective: 2000px;
+    opacity: .7
+}
+
+.graf-layout {
+    height: 100%;
+    margin: auto;
+    position: relative;
+    perspective: 2000px;
+}
+
+.graf-circle:first-child {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%) rotateY(1000deg) rotateX(1000deg) rotate(0deg);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 5px solid #2098f3;
+    animation: scaleOne 5.5s infinite alternate linear;
+    opacity: 0
+}
+
+@keyframes scaleOne {
+    to {
+        border-radius: 50%;
+        transform: translate(-50%,-50%) rotateY(180deg) rotateX(90deg) rotate(1000deg);
+        opacity: 0
+    }
+}
+
+.graf-circle:nth-child(2) {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%) rotateX(135deg) rotateY(135deg) rotate(0deg);
+    width: 310px;
+    height: 310px;
+    border-radius: 50%;
+    border: 5px solid #2098f3;
+    border-left: none;
+    border-top: none;
+    animation: scaleTwo 5s infinite alternate linear
+}
+
+@keyframes scaleTwo {
+    to {
+        border-radius: 50%;
+        transform: translate(-50%,-50%) rotateX(135deg) rotateY(135deg) rotate(1turn);
+        opacity: 0
+    }
+}
+
+.graf-circle:nth-child(3) {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%) rotateX(45deg) rotateY(45deg) rotate(0deg);
+    width: 310px;
+    height: 310px;
+    border-radius: 50%;
+    border: 5px solid #2098f3;
+    border-bottom: none;
+    border-left: none;
+    animation: scaleThree 4.5s infinite alternate linear
+}
+
+@keyframes scaleThree {
+    to {
+        border-radius: 50%;
+        transform: translate(-50%,-50%) rotateX(45deg) rotateY(45deg) rotate(1turn);
+        opacity: 0
+    }
+}
+
+.graf-circle:nth-child(4) {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%) rotateX(45deg) rotate(0deg);
+    width: 310px;
+    height: 310px;
+    border-radius: 50%;
+    border: 5px solid #2098f3;
+    border-top: none;
+    border-right: none;
+    animation: scaleFour 4s infinite alternate linear
+}
+
+@keyframes scaleFour {
+    to {
+        border-radius: 50%;
+        transform: translate(-50%,-50%) rotateX(45deg) rotate(1turn);
+        opacity: 0
+    }
+}
+
+.graf-circle:nth-child(5) {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%) rotateX(135deg) rotate(0deg);
+    width: 310px;
+    height: 310px;
+    border-radius: 50%;
+    border: 5px solid #2098f3;
+    border-bottom: none;
+    border-left: none;
+    animation: scaleFive 3.5s infinite alternate linear
+}
+
+@keyframes scaleFive {
+    to {
+        border-radius: 50%;
+        transform: translate(-50%,-50%) rotateX(135deg) rotate(1turn);
+        opacity: 0
+    }
+}
+
+.graf-circle:nth-child(6) {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%) rotateX(100deg) rotate(0deg);
+    width: 310px;
+    height: 310px;
+    border-radius: 50%;
+    border: 15px solid #2098f3;
+    border-bottom: none;
+    border-right: none;
+    animation: scaleSix 3s infinite alternate linear
+}
+
+@keyframes scaleSix {
+    to {
+        border-radius: 50%;
+        transform: translate(-50%,-50%) rotateX(100deg) rotate(1turn);
+        opacity: 0
+    }
+}
+
+.graf-circle:nth-child(7) {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%) rotateY(-105deg) rotate(0deg);
+    width: 310px;
+    height: 310px;
+    border-radius: 50%;
+    border: 20px solid #2098f3;
+    border-bottom: none;
+    border-left: none;
+    animation: scaleSeven 2.5s infinite alternate linear
+}
+
+@keyframes scaleSeven {
+    to {
+        border-radius: 50%;
+        transform: translate(-50%,-50%) rotateY(-105deg) rotate(1turn);
+        opacity: 0
+    }
+}
+
+.graf-circle:nth-child(8) {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%) rotateY(45deg) rotateX(45deg) rotate(0deg);
+    width: 310px;
+    height: 310px;
+    border-radius: 50%;
+    border: 5px solid #2098f3;
+    border-bottom: none;
+    border-left: none;
+    animation: scaleEight 2s infinite alternate linear
+}
+
+@keyframes scaleEight {
+    to {
+        border-radius: 50%;
+        transform: translate(-50%,-50%) rotateY(45deg) rotateX(45deg) rotate(1turn);
+        opacity: 0
+    }
+}
+
+.graf-circle:nth-child(9) {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%) rotateY(135deg) rotateX(135deg) rotate(0deg);
+    width: 310px;
+    height: 310px;
+    border-radius: 50%;
+    border: 5px solid #2098f3;
+    border-bottom: none;
+    border-right: none;
+    animation: scaleNine 1.5s infinite alternate linear
+}
+
+@keyframes scaleNine {
+    to {
+        border-radius: 50%;
+        transform: translate(-50%,-50%) rotateY(135deg) rotateX(135deg) rotate(1turn);
+        opacity: 0
+    }
+}
+
+.graf-circle:nth-child(10) {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%) rotateY(113deg) rotateX(115deg) rotate(0deg);
+    width: 310px;
+    height: 310px;
+    border-radius: 50%;
+    border: 5px solid #2098f3;
+    border-bottom: none;
+    border-right: none;
+    animation: scaleTen 3s infinite alternate linear
+}
+
+@keyframes scaleTen {
+    to {
+        border-radius: 50%;
+        transform: translate(-50%,-50%) rotateY(113deg) rotateX(115deg) rotate(1turn);
+        opacity: 0
+    }
+}
+
+.graf-circle:nth-child(11) {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%) rotateX(-45deg) rotateY(-45deg) rotate(0deg);
+    width: 310px;
+    height: 310px;
+    border-radius: 50%;
+    border: 5px solid #2098f3;
+    border-bottom: none;
+    border-right: none;
+    animation: scaleEleven 2s infinite alternate linear
+}
+
+@keyframes scaleEleven {
+    to {
+        border-radius: 50%;
+        transform: translate(-50%,-50%) rotateX(-45deg) rotateY(-45deg) rotate(1turn);
+        opacity: 0
+    }
 }

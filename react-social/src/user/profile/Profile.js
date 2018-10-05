@@ -2,19 +2,24 @@ import React, { Component } from 'react';
 import './Profile.css';
 
 class Profile extends Component {
+    constructor(props) {
+        super(props);
+        console.log(props);
+    }
     render() {
         return (
-            <div className="app-container">
-                <div className="profile-container">
-                    <div className="profile-header">
-                    </div>
-                    <div className="profile-info container">
-                        <h1 className="page-title">Profile</h1>
-                        <div className="profile-content">
-
+            <div className="profile-container">
+                <div className="container">
+                    <div className="profile-info">
+                        <div className="profile-avatar">
+                            <img src={this.props.currentUser.imageUrl} />
+                        </div>
+                        <div className="profile-name">
+                           <h2>{this.props.currentUser.name}</h2>
+                           <p className="profile-email">{this.props.currentUser.email}</p>
                         </div>
                     </div>
-                </div>
+                </div>    
             </div>
         );
     }
