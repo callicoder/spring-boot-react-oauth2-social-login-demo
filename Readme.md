@@ -19,7 +19,7 @@
 
 + **Specify OAuth2 Provider ClientId's and ClientSecrets**
 
-	```bash
+	```yml
     security:
       oauth2:
         client:
