@@ -6,6 +6,7 @@ import { Link, Redirect } from 'react-router-dom'
 import fbLogo from '../../img/fb-logo.png';
 import googleLogo from '../../img/google-logo.png';
 import githubLogo from '../../img/github-logo.png';
+import Alert from 'react-s-alert';
 
 class Login extends Component {
     render() {
@@ -78,13 +79,10 @@ class LoginForm extends Component {
         login(loginRequest)
         .then(response => {
             localStorage.setItem(ACCESS_TOKEN, response.accessToken);
+            Alert.success("You're successfully logged in!");
             this.props.history.push("/");
         }).catch(error => {
-            if(error.status === 401) {
-
-            } else {
-
-            }
+            Alert.error((error && error.message) || 'Oops! Something went wrong. Please try again!');
         });
     }
     

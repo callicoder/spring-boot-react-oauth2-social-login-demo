@@ -14,6 +14,9 @@ import LoadingIndicator from '../common/LoadingIndicator';
 import { getCurrentUser } from '../util/APIUtils';
 import { ACCESS_TOKEN } from '../constants';
 import PrivateRoute from '../common/PrivateRoute';
+import Alert from 'react-s-alert';
+import 'react-s-alert/dist/s-alert-default.css';
+import 'react-s-alert/dist/s-alert-css-effects/slide.css';
 import './App.css';
 
 class App extends Component {
@@ -54,6 +57,7 @@ class App extends Component {
       authenticated: false,
       currentUser: null
     });
+    Alert.success("You're safely logged out!");
   }
 
   componentDidMount() {
@@ -83,6 +87,9 @@ class App extends Component {
             <Route component={NotFound}></Route>
           </Switch>
         </div>
+        <Alert stack={{limit: 3}} 
+          timeout = {3000}
+          position='top-right' effect='slide' offset={65} />
       </div>
     );
   }

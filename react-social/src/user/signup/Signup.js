@@ -6,6 +6,7 @@ import { signup } from '../../util/APIUtils';
 import fbLogo from '../../img/fb-logo.png';
 import googleLogo from '../../img/google-logo.png';
 import githubLogo from '../../img/github-logo.png';
+import Alert from 'react-s-alert';
 
 class Signup extends Component {
     render() {
@@ -78,13 +79,10 @@ class SignupForm extends Component {
 
         signup(signUpRequest)
         .then(response => {
+            Alert.success("You're successfully registered. Please login to continue!");
             this.props.history.push("/login");
         }).catch(error => {
-            if(error.status === 400) {
-
-            } else {
-
-            }
+            Alert.error((error && error.message) || 'Oops! Something went wrong. Please try again!');            
         });
     }
 
