@@ -12,7 +12,15 @@ class Profile extends Component {
                 <div className="container">
                     <div className="profile-info">
                         <div className="profile-avatar">
-                            <img src={this.props.currentUser.imageUrl} />
+                            { 
+                                this.props.currentUser.imageUrl ? (
+                                    <img src={this.props.currentUser.imageUrl} />
+                                ) : (
+                                    <div className="text-avatar">
+                                        <span>{this.props.currentUser.name && this.props.currentUser.name[0]}</span>
+                                    </div>
+                                )
+                            }
                         </div>
                         <div className="profile-name">
                            <h2>{this.props.currentUser.name}</h2>
