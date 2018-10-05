@@ -9,6 +9,23 @@ import githubLogo from '../../img/github-logo.png';
 import Alert from 'react-s-alert';
 
 class Login extends Component {
+    constructor(props) {
+        super(props);
+        console.log(props);
+    }
+
+    componentDidMount() {
+        if(this.props.location.state && this.props.location.state.error) {
+            setTimeout(() => {
+                Alert.error(this.props.location.state.error);
+                this.props.history.replace({
+                    pathname: this.props.location.pathname,
+                    state: {}
+                });
+            }, 300);
+        }
+    }
+    
     render() {
         if(this.props.authenticated) {
             return <Redirect
