@@ -7,7 +7,7 @@
 }
 
 .home-title {
-    font-size: 24px;
+    font-size: 26px;
     font-weight: 400;
     color: rgba(0,0,0,0.65);
     margin-top: 50px; 
@@ -57,7 +57,7 @@
     width: 310px;
     height: 310px;
     border-radius: 50%;
-    border: 5px solid #2098f3;
+    border: 5px solid #ffa20a;
     border-left: none;
     border-top: none;
     animation: scaleTwo 5s infinite alternate linear
@@ -79,7 +79,7 @@
     width: 310px;
     height: 310px;
     border-radius: 50%;
-    border: 5px solid #2098f3;
+    border: 5px solid #ec412c;
     border-bottom: none;
     border-left: none;
     animation: scaleThree 4.5s infinite alternate linear
@@ -101,7 +101,7 @@
     width: 310px;
     height: 310px;
     border-radius: 50%;
-    border: 5px solid #2098f3;
+    border: 5px solid #fcbd00;
     border-top: none;
     border-right: none;
     animation: scaleFour 4s infinite alternate linear
@@ -123,7 +123,7 @@
     width: 310px;
     height: 310px;
     border-radius: 50%;
-    border: 5px solid #2098f3;
+    border: 5px solid #2da94f;
     border-bottom: none;
     border-left: none;
     animation: scaleFive 3.5s infinite alternate linear
@@ -145,7 +145,7 @@
     width: 310px;
     height: 310px;
     border-radius: 50%;
-    border: 15px solid #2098f3;
+    border: 15px solid #f57700;
     border-bottom: none;
     border-right: none;
     animation: scaleSix 3s infinite alternate linear
@@ -167,7 +167,7 @@
     width: 310px;
     height: 310px;
     border-radius: 50%;
-    border: 20px solid #2098f3;
+    border: 10px solid #2098f3;
     border-bottom: none;
     border-left: none;
     animation: scaleSeven 2.5s infinite alternate linear
@@ -189,7 +189,7 @@
     width: 310px;
     height: 310px;
     border-radius: 50%;
-    border: 5px solid #2098f3;
+    border: 5px solid #30bbb0;
     border-bottom: none;
     border-left: none;
     animation: scaleEight 2s infinite alternate linear
@@ -211,7 +211,7 @@
     width: 310px;
     height: 310px;
     border-radius: 50%;
-    border: 5px solid #2098f3;
+    border: 5px solid #ff453c;
     border-bottom: none;
     border-right: none;
     animation: scaleNine 1.5s infinite alternate linear

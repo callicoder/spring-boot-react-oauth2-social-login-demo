@@ -7,12 +7,7 @@
 .app-title {
     line-height: 60px;
     vertical-align: middle;
-    font-size: 1.2em;
-    color: rgba(0,0,0,0.80);
-}
-
-.app-title:hover {
-    color: rgba(0,0,0,0.80);
+    font-size: 1.3em;
 }
 
 .app-branding {
@@ -40,9 +35,13 @@
     vertical-align: middle;
     padding-left: 15px;
     padding-right: 15px;
-    color: rgba(0,0,0,0.80);
+    color: rgba(0,0,0,0.65);
 }
 
 .app-nav ul li a:hover {
-    color: rgba(0,0,0,0.80);
+    color: #0f96f6;
+}
+
+.app-nav ul li a.active {
+    color: #0f96f6;
 }
