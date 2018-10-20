@@ -11,7 +11,7 @@ spring:
             naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
         properties:
             hibernate:
-                dialect: org.hibernate.dialect.MySQL5Dialect
+                dialect: org.hibernate.dialect.MySQL5InnoDBDialect
     security:
       oauth2:
         client:
