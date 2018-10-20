@@ -1,9 +1,9 @@
 .home-container {
     text-align: center;
-    padding-top: 60px;
-    height: calc(100vh - 60px);
-    overflow: hidden;
+    min-height: calc(100vh - 60px);
+    overflow: auto;
     position: relative;
+    padding-top: 60px;
 }
 
 .home-title {
