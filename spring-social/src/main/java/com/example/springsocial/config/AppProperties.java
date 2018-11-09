@@ -8,7 +8,7 @@ import java.util.List;
 @ConfigurationProperties(prefix = "app")
 public class AppProperties {
     private final Auth auth = new Auth();
-    private final OAuth2 oAuth2 = new OAuth2();
+    private final OAuth2 oauth2 = new OAuth2();
 
     public static class Auth {
         private String tokenSecret;
@@ -48,7 +48,7 @@ public class AppProperties {
         return auth;
     }
 
-    public OAuth2 getoAuth2() {
-        return oAuth2;
+    public OAuth2 getOauth2() {
+        return oauth2;
     }
 }
