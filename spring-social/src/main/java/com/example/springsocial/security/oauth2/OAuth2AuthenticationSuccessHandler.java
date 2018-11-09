@@ -20,14 +20,14 @@ import java.util.Optional;
 import static com.example.springsocial.security.oauth2.HttpCookieOAuth2AuthorizationRequestRepository.REDIRECT_URI_PARAM_COOKIE_NAME;
 
 @Component
-public class Oauth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
+public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 
     private TokenProvider tokenProvider;
 
     private AppProperties appProperties;
 
     @Autowired
-    Oauth2AuthenticationSuccessHandler(TokenProvider tokenProvider, AppProperties appProperties) {
+    OAuth2AuthenticationSuccessHandler(TokenProvider tokenProvider, AppProperties appProperties) {
         this.tokenProvider = tokenProvider;
         this.appProperties = appProperties;
     }

@@ -4,7 +4,7 @@ import com.example.springsocial.security.*;
 import com.example.springsocial.security.oauth2.CustomOAuth2UserService;
 import com.example.springsocial.security.oauth2.HttpCookieOAuth2AuthorizationRequestRepository;
 import com.example.springsocial.security.oauth2.OAuth2AuthenticationFailureHandler;
-import com.example.springsocial.security.oauth2.Oauth2AuthenticationSuccessHandler;
+import com.example.springsocial.security.oauth2.OAuth2AuthenticationSuccessHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -38,7 +38,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private CustomOAuth2UserService customOAuth2UserService;
 
     @Autowired
-    private Oauth2AuthenticationSuccessHandler oauth2AuthenticationSuccessHandler;
+    private OAuth2AuthenticationSuccessHandler oauth2AuthenticationSuccessHandler;
 
     @Autowired
     private OAuth2AuthenticationFailureHandler oAuth2AuthenticationFailureHandler;
