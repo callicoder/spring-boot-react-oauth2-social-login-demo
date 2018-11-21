@@ -1,6 +1,7 @@
 package com.example.springsocial.security.oauth2;
 
 import com.example.springsocial.util.CookieUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 import org.springframework.stereotype.Component;
@@ -17,6 +18,9 @@ import static com.example.springsocial.security.oauth2.HttpCookieOAuth2Authoriza
 @Component
 public class OAuth2AuthenticationFailureHandler extends SimpleUrlAuthenticationFailureHandler {
 
+    @Autowired
+    HttpCookieOAuth2AuthorizationRequestRepository httpCookieOAuth2AuthorizationRequestRepository;
+
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
         String targetUrl = CookieUtils.getCookie(request, REDIRECT_URI_PARAM_COOKIE_NAME)
@@ -27,7 +31,7 @@ public class OAuth2AuthenticationFailureHandler extends SimpleUrlAuthenticationF
                 .queryParam("error", exception.getLocalizedMessage())
                 .build().toUriString();
 
-        HttpCookieOAuth2AuthorizationRequestRepository.removeAuthorizationRequest(request, response);
+        httpCookieOAuth2AuthorizationRequestRepository.removeAuthorizationRequest(request, response);
 
         getRedirectStrategy().sendRedirect(request, response, targetUrl);
     }
