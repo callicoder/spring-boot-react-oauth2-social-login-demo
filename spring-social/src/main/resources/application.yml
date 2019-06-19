@@ -17,15 +17,15 @@ spring:
         client:
           registration:
             google:
-              clientId: 691112774695-gf3d0ij27nfpcdi4va46tt58bk8u92te.apps.googleusercontent.com
-              clientSecret: E832IIFFQ3wjoEZBSKb9hqEv
+              clientId:
+              clientSecret:
               redirectUriTemplate: "{baseUrl}/oauth2/callback/{registrationId}"
               scope:
                 - email
                 - profile
             github:
-              clientId: fde6d67ae4c673447119
-              clientSecret: 87c74ffd79698c03df6436fe0448217d010fdda1
+              clientId:
+              clientSecret: 
               redirectUriTemplate: "{baseUrl}/oauth2/callback/{registrationId}"
               scope:
                 - user:email
