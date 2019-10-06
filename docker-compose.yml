@@ -1,0 +1,41 @@
+version: "3"
+services:
+  db:
+    image: mysql:5.7
+    # network_mode: "host"
+    ports:
+      - '3306:3306'
+    volumes:
+      - ./mysql/data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: callicoder
+      MYSQL_DATABASE: spring_social
+  back:
+    image: maven:3-jdk-8-alpine
+    depends_on:
+      - db
+    # network_mode: "host"
+    ports:
+      - '8080:8080'
+    links:
+      - db
+    environment:
+      SPRING_DATASOURCE_URL: 'jdbc:mysql://db:3306/spring_social?useSSL=false'
+    volumes:
+      - ./spring-social:/app
+      - ~/.m2:/root/.m2
+    working_dir: /app
+    command: ["mvn", "spring-boot:run"]
+  front:
+    image: node:12.11.0-alpine
+    depends_on:
+      - back
+    # network_mode: "host"
+    ports:
+      - '3000:3000'
+    volumes:
+      - ./react-social:/app
+    working_dir: /app
+    command: >
+      sh -c "yarn install
+      && yarn start"
