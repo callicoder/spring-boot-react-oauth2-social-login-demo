@@ -1,13 +1,23 @@
 package com.example.springsocial.config;
 
-import com.example.springsocial.security.*;
+import com.example.springsocial.security.CustomUserDetailsService;
+import com.example.springsocial.security.RestAuthenticationEntryPoint;
+import com.example.springsocial.security.TokenAuthenticationFilter;
 import com.example.springsocial.security.oauth2.CustomOAuth2UserService;
 import com.example.springsocial.security.oauth2.HttpCookieOAuth2AuthorizationRequestRepository;
 import com.example.springsocial.security.oauth2.OAuth2AuthenticationFailureHandler;
 import com.example.springsocial.security.oauth2.OAuth2AuthenticationSuccessHandler;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.MediaType;
+import org.springframework.http.converter.AbstractHttpMessageConverter;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.BeanIds;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -18,9 +28,12 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.oauth2.client.web.AuthorizationRequestRepository;
-import org.springframework.security.oauth2.core.endpoint.OAuth2AuthorizationRequest;
+import org.springframework.security.oauth2.client.http.OAuth2ErrorResponseErrorHandler;
+import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
+import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.client.RestTemplate;
 
 @Configuration
 @EnableWebSecurity
@@ -123,12 +136,44 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         .baseUri("/oauth2/callback/*")
                         .and()
                     .userInfoEndpoint()
-                        .userService(customOAuth2UserService)
+                        .userService(oauth2UserService())
                         .and()
                     .successHandler(oAuth2AuthenticationSuccessHandler)
                     .failureHandler(oAuth2AuthenticationFailureHandler);
 
         // Add our custom Token based authentication filter
         http.addFilterBefore(tokenAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+    }
+
+    private OAuth2UserService<OAuth2UserRequest, OAuth2User> oauth2UserService() {
+        RestTemplate restTemplate = new RestTemplate();
+        restTemplate.setErrorHandler(new OAuth2ErrorResponseErrorHandler());
+        enhanceJsonMessageConverter(restTemplate);
+        customOAuth2UserService.setRestOperations(restTemplate);
+        return customOAuth2UserService;
+    }
+
+    private void enhanceJsonMessageConverter(RestTemplate restTemplate) {
+        // NOTE:
+        // Facebook's UserInfo API -> https://graph.facebook.com/me
+        // returns "text/javascript; charset=UTF-8" for the "content-type" response header
+        // even though the content is JSON. This is not correct and should be reported to Facebook to fix.
+        //
+        // This is a temporary workaround that adds "text/javascript; charset=UTF-8"
+        // as a supported MediaType in MappingJackson2HttpMessageConverter,
+        // which is used to convert the UserInfo response to a Map.
+
+        HttpMessageConverter<?> jsonMessageConverter = restTemplate.getMessageConverters().stream()
+            .filter(c -> c instanceof MappingJackson2HttpMessageConverter)
+            .findFirst()
+            .orElse(null);
+
+        if (jsonMessageConverter == null) {
+            return;
+        }
+
+        List<MediaType> supportedMediaTypes = new ArrayList<>(jsonMessageConverter.getSupportedMediaTypes());
+        supportedMediaTypes.add(MediaType.valueOf("text/javascript;charset=UTF-8"));
+        ((AbstractHttpMessageConverter) jsonMessageConverter).setSupportedMediaTypes(supportedMediaTypes);
     }
 }
