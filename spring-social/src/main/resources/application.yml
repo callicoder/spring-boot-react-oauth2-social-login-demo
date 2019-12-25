@@ -1,6 +1,6 @@
 spring:
     datasource:
-        url: ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3306/spring_social?useSSL=false}
+        url: ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3306/spring_social?useSSL=false&serverTimezone=UTC&useLegacyDatetimeCode=false}
         username: root
         password: callicoder
 
