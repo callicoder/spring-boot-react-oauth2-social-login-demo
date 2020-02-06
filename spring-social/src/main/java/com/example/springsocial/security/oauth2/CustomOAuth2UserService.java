@@ -2,8 +2,11 @@ package com.example.springsocial.security.oauth2;
 
 import com.example.springsocial.exception.OAuth2AuthenticationProcessingException;
 import com.example.springsocial.model.AuthProvider;
+import com.example.springsocial.model.Authority;
 import com.example.springsocial.model.User;
+import com.example.springsocial.repository.AuthorityRepository;
 import com.example.springsocial.repository.UserRepository;
+import com.example.springsocial.security.AuthoritiesConstants;
 import com.example.springsocial.security.UserPrincipal;
 import com.example.springsocial.security.oauth2.user.OAuth2UserInfo;
 import com.example.springsocial.security.oauth2.user.OAuth2UserInfoFactory;
@@ -17,13 +20,19 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.util.Collections;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private AuthorityRepository authorityRepository;
+
 
     @Override
     public OAuth2User loadUser(OAuth2UserRequest oAuth2UserRequest) throws OAuth2AuthenticationException {
@@ -69,6 +78,8 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         user.setProviderId(oAuth2UserInfo.getId());
         user.setName(oAuth2UserInfo.getName());
         user.setEmail(oAuth2UserInfo.getEmail());
+        Set<Authority> authorities = Collections.singleton(this.authorityRepository.findByName(AuthoritiesConstants.USER));
+        user.setAuthorities(authorities);
         user.setImageUrl(oAuth2UserInfo.getImageUrl());
         return userRepository.save(user);
     }

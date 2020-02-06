@@ -2,13 +2,16 @@ package com.example.springsocial.controller;
 
 import com.example.springsocial.exception.BadRequestException;
 import com.example.springsocial.model.AuthProvider;
+import com.example.springsocial.model.Authority;
 import com.example.springsocial.model.User;
 import com.example.springsocial.payload.ApiResponse;
 import com.example.springsocial.payload.AuthResponse;
 import com.example.springsocial.payload.LoginRequest;
 import com.example.springsocial.payload.SignUpRequest;
+import com.example.springsocial.repository.AuthorityRepository;
 import com.example.springsocial.repository.UserRepository;
 import com.example.springsocial.security.TokenProvider;
+import com.example.springsocial.security.AuthoritiesConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -18,10 +21,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
 import javax.validation.Valid;
 import java.net.URI;
-
+import java.util.Collections;
+import java.util.Set;
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
@@ -31,6 +34,9 @@ public class AuthController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private AuthorityRepository authorityRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -68,6 +74,10 @@ public class AuthController {
         user.setProvider(AuthProvider.local);
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+
+        Set<Authority> authorities = Collections.singleton(this.authorityRepository.findByName(AuthoritiesConstants.USER));
+
+        user.setAuthorities(authorities);
 
         User result = userRepository.save(user);
 
