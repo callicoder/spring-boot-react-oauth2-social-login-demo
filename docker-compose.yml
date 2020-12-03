@@ -1,0 +1,53 @@
+---
+networks:
+  social-network:
+    driver: bridge
+services:
+  react-social:
+    build:
+      context: ./react-social
+      dockerfile: Dockerfile
+    container_name: react-social
+    depends_on:
+      - spring-social
+    image: "react-social:latest"
+    networks:
+      - social-network
+    ports:
+      - "3001:3001"
+  spring-social:
+    build:
+      context: ./spring-social
+      dockerfile: Dockerfile
+    container_name: spring-social
+    depends_on:
+      - spring-social-db
+    environment:
+      - DATABASE_HOST=spring-social-db
+      - DATABASE_USER=root
+      - DATABASE_PASSWORD=passw0rd
+      - DATABASE_NAME=spring_social
+      - DATABASE_PORT=3306
+    image: spring-social
+    networks:
+      - social-network
+    ports:
+      - "8080:8080"
+  spring-social-db:
+    container_name: spring-social-db
+    environment:
+      MYSQL_DATABASE: spring_social
+      MYSQL_PASSWORD: spring-social-dev-passw0rd
+      MYSQL_ROOT_PASSWORD: passw0rd
+      MYSQL_USER: spring-social-dev
+    image: "mysql:latest"
+    networks:
+      - social-network
+    ports:
+      - "3306:3306"
+    restart: always
+    volumes:
+      - "db_data:/var/lib/mysql"
+version: "3.5"
+volumes:
+  db_data: {}
