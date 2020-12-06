@@ -1,7 +1,4 @@
 ---
-networks:
-  social-network:
-    driver: bridge
 services:
   react-social:
     build:
@@ -11,10 +8,8 @@ services:
     depends_on:
       - spring-social
     image: "react-social:latest"
-    networks:
-      - social-network
     ports:
-      - "3001:3001"
+      - 3000:3000
   spring-social:
     build:
       context: ./spring-social
@@ -29,10 +24,8 @@ services:
       - DATABASE_NAME=spring_social
       - DATABASE_PORT=3306
     image: spring-social
-    networks:
-      - social-network
     ports:
-      - "8080:8080"
+      - 8080:8080
   spring-social-db:
     container_name: spring-social-db
     environment:
@@ -41,13 +34,11 @@ services:
       MYSQL_ROOT_PASSWORD: passw0rd
       MYSQL_USER: spring-social-dev
     image: "mysql:latest"
-    networks:
-      - social-network
     ports:
-      - "3306:3306"
+      - 3306:3306
     restart: always
     volumes:
       - "db_data:/var/lib/mysql"
-version: "3.5"
+version: "3.8"
 volumes:
   db_data: {}
