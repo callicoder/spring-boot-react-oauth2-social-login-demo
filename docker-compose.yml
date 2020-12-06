@@ -23,6 +23,8 @@ services:
       - DATABASE_PASSWORD=passw0rd
       - DATABASE_NAME=spring_social
       - DATABASE_PORT=3306
+      - GOOGLE_CLIENT_ID=5014057553-8gm9um6vnli3cle5rgigcdjpdrid14m9.apps.googleusercontent.com
+      - GOOGLE_CLIENT_SECRET=tWZKVLxaD_ARWsriiiUFYoIk
     image: spring-social
     ports:
       - 8080:8080
