@@ -1,2 +1,3 @@
 #!/bin/bash
-docker-compose down --rmi all
+docker-compose down
+#docker-compose down --rmi all
