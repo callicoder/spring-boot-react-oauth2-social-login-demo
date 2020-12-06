@@ -1,0 +1,46 @@
+---
+services:
+  react-social:
+    build:
+      context: ./react-social
+      dockerfile: Dockerfile
+    container_name: react-social
+    depends_on:
+      - spring-social
+    image: "react-social:latest"
+    ports:
+      - 3000:3000
+  spring-social:
+    build:
+      context: ./spring-social
+      dockerfile: Dockerfile
+    container_name: spring-social
+    depends_on:
+      - spring-social-db
+    environment:
+      - DATABASE_HOST=spring-social-db
+      - DATABASE_USER=root
+      - DATABASE_PASSWORD=passw0rd
+      - DATABASE_NAME=spring_social
+      - DATABASE_PORT=3306
+      - GOOGLE_CLIENT_ID=5014057553-8gm9um6vnli3cle5rgigcdjpdrid14m9.apps.googleusercontent.com
+      - GOOGLE_CLIENT_SECRET=tWZKVLxaD_ARWsriiiUFYoIk
+    image: spring-social
+    ports:
+      - 8080:8080
+  spring-social-db:
+    container_name: spring-social-db
+    environment:
+      MYSQL_DATABASE: spring_social
+      MYSQL_PASSWORD: spring-social-dev-passw0rd
+      MYSQL_ROOT_PASSWORD: passw0rd
+      MYSQL_USER: spring-social-dev
+    image: "mysql:latest"
+    ports:
+      - 3306:3306
+    restart: always
+    volumes:
+      - "db_data:/var/lib/mysql"
+version: "3.8"
+volumes:
+  db_data: {}

@@ -1,0 +1,6 @@
+.idea
+*/.idea/*
+spring-social/.java-version
+spring-social/build.sh
+react-social/package.json
+react-social/yarn.lock
