@@ -18,7 +18,7 @@ public class UserController {
     @Autowired
     private UserRepository userRepository;
 
-    @GetMapping("/user/me")
+    @GetMapping("/api/auth/me")
     @PreAuthorize("hasRole('USER')")
     public User getCurrentUser(Principal principal) {
         return userRepository.findByName(principal.getName())
