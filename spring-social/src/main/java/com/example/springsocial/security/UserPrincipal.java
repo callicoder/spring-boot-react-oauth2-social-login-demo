@@ -18,7 +18,8 @@ public class UserPrincipal implements OAuth2User, UserDetails {
     private Collection<? extends GrantedAuthority> authorities;
     private Map<String, Object> attributes;
 
-    public UserPrincipal(String name, String password, Collection<? extends GrantedAuthority> authorities) {
+    public UserPrincipal(String name, String password,
+                         Collection<? extends GrantedAuthority> authorities) {
 
         this.name = name;
         this.password = password;
@@ -37,12 +38,12 @@ public class UserPrincipal implements OAuth2User, UserDetails {
         );
     }
 
-    public static UserPrincipal create(User user, Map<String, Object> attributes) {
+    public static UserPrincipal create(User user,
+                                       Map<String, Object> attributes) {
         UserPrincipal userPrincipal = UserPrincipal.create(user);
         userPrincipal.setAttributes(attributes);
         return userPrincipal;
     }
-
 
 
     @Override

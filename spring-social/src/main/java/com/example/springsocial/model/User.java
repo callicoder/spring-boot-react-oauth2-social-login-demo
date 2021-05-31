@@ -1,6 +1,6 @@
 package com.example.springsocial.model;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.validation.constraints.NotNull;
 
@@ -29,7 +29,6 @@ public class User {
     }
 
 
-
     public String getImageUrl() {
         return imageUrl;
     }
@@ -37,7 +36,6 @@ public class User {
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
-
 
 
     public String getPassword() {

@@ -24,11 +24,13 @@ public class FacebookOAuth2UserInfo extends OAuth2UserInfo {
 
     @Override
     public String getImageUrl() {
-        if(attributes.containsKey("picture")) {
-            Map<String, Object> pictureObj = (Map<String, Object>) attributes.get("picture");
-            if(pictureObj.containsKey("data")) {
-                Map<String, Object>  dataObj = (Map<String, Object>) pictureObj.get("data");
-                if(dataObj.containsKey("url")) {
+        if (attributes.containsKey("picture")) {
+            Map<String, Object> pictureObj =
+                    (Map<String, Object>) attributes.get("picture");
+            if (pictureObj.containsKey("data")) {
+                Map<String, Object> dataObj =
+                        (Map<String, Object>) pictureObj.get("data");
+                if (dataObj.containsKey("url")) {
                     return (String) dataObj.get("url");
                 }
             }

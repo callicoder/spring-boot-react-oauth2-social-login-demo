@@ -1,6 +1,5 @@
 package com.example.springsocial.payload;
 
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
 /**
