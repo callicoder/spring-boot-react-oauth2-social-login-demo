@@ -4,9 +4,8 @@ import com.example.springsocial.exception.BadRequestException;
 import com.example.springsocial.model.AuthProvider;
 import com.example.springsocial.model.User;
 import com.example.springsocial.payload.ApiResponse;
-import com.example.springsocial.payload.AuthResponse;
-import com.example.springsocial.payload.LoginRequest;
-import com.example.springsocial.payload.SignUpRequest;
+import com.example.springsocial.payload.AuthenticationResponse;
+import com.example.springsocial.payload.AuthenticationRequest;
 import com.example.springsocial.repository.UserRepository;
 import com.example.springsocial.security.TokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.security.auth.login.LoginContext;
 import javax.validation.Valid;
 import java.net.URI;
 
@@ -43,11 +43,11 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<?> authenticateUser(
-            @Valid @RequestBody LoginRequest loginRequest) {
+            @Valid @RequestBody AuthenticationRequest loginRequest) {
 
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
-                        loginRequest.getName(),
+                        loginRequest.getUserName(),
                         loginRequest.getPassword()
                 )
         );
@@ -55,19 +55,24 @@ public class AuthController {
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         String token = tokenProvider.createToken(authentication);
-        return ResponseEntity.ok(new AuthResponse(token));
+        AuthenticationResponse authenticationResponse =
+                new AuthenticationResponse(loginRequest.getUserName(),
+                        token,
+                        "Refresh",
+                        "/images/"+loginRequest.getUserName()+".png");
+        return ResponseEntity.ok(authenticationResponse);
     }
 
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(
-            @Valid @RequestBody SignUpRequest signUpRequest) {
-        if (userRepository.existsByName(signUpRequest.getName())) {
+            @Valid @RequestBody AuthenticationRequest signUpRequest) {
+        if (userRepository.existsByName(signUpRequest.getUserName())) {
             throw new BadRequestException("Email address already in use.");
         }
 
         // Creating user's account
         User user = new User();
-        user.setName(signUpRequest.getName());
+        user.setName(signUpRequest.getUserName());
 //        user.setEmail(signUpRequest.getEmail());
         user.setPassword(signUpRequest.getPassword());
         user.setProvider(AuthProvider.local);
