@@ -54,7 +54,7 @@ class SignupForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            name: '',
+            userName: '',
             password: ''
         }
         this.handleInputChange = this.handleInputChange.bind(this);
@@ -89,9 +89,9 @@ class SignupForm extends Component {
         return (
             <form onSubmit={this.handleSubmit}>
                 <div className="form-item">
-                    <input type="text" name="name"
+                    <input type="text" name="userName"
                         className="form-control" placeholder="Name"
-                        value={this.state.name} onChange={this.handleInputChange} required />
+                        value={this.state.userName} onChange={this.handleInputChange} required />
                 </div>
                 <div className="form-item">
                     <input type="password" name="password"
