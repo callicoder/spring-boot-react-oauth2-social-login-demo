@@ -95,8 +95,8 @@ public class SequenceGenerator {
                 NetworkInterface networkInterface = networkInterfaces.nextElement();
                 byte[] mac = networkInterface.getHardwareAddress();
                 if (mac != null) {
-                    for(int i = 0; i < mac.length; i++) {
-                        sb.append(String.format("%02X", mac[i]));
+                    for (byte b : mac) {
+                        sb.append(String.format("%02X", b));
                     }
                 }
             }
