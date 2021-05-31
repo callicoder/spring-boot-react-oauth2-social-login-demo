@@ -8,18 +8,17 @@ import javax.validation.constraints.NotBlank;
  */
 public class LoginRequest {
     @NotBlank
-    @Email
-    private String email;
+    private String name;
 
     @NotBlank
     private String password;
 
-    public String getEmail() {
-        return email;
+    public String getName() {
+        return name;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getPassword() {

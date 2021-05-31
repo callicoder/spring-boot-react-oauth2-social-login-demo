@@ -12,10 +12,6 @@ public class SignUpRequest {
     private String name;
 
     @NotBlank
-    @Email
-    private String email;
-
-    @NotBlank
     private String password;
 
     public String getName() {
@@ -24,14 +20,6 @@ public class SignUpRequest {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public String getPassword() {

@@ -2,12 +2,11 @@ package com.example.springsocial.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "users", uniqueConstraints = {
-        @UniqueConstraint(columnNames = "email")
+        @UniqueConstraint(columnNames = "name")
 })
 public class User {
     @Id
@@ -17,14 +16,8 @@ public class User {
     @Column(nullable = false)
     private String name;
 
-    @Email
-    @Column(nullable = false)
-    private String email;
-
     private String imageUrl;
 
-    @Column(nullable = false)
-    private Boolean emailVerified = false;
 
     @JsonIgnore
     private String password;
@@ -51,13 +44,7 @@ public class User {
         this.name = name;
     }
 
-    public String getEmail() {
-        return email;
-    }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
 
     public String getImageUrl() {
         return imageUrl;
@@ -67,13 +54,7 @@ public class User {
         this.imageUrl = imageUrl;
     }
 
-    public Boolean getEmailVerified() {
-        return emailVerified;
-    }
 
-    public void setEmailVerified(Boolean emailVerified) {
-        this.emailVerified = emailVerified;
-    }
 
     public String getPassword() {
         return password;
