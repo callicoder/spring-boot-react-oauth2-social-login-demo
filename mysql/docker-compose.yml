@@ -1,0 +1,12 @@
+version: "3"
+services:
+  db:
+    image: mysql:5.7
+    # network_mode: "host"
+    ports:
+      - '3306:3306'
+    volumes:
+      - ./data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: callicoder
+      MYSQL_DATABASE: spring_social
