@@ -25,7 +25,7 @@ class App extends Component {
     this.state = {
       authenticated: false,
       currentUser: null,
-      loading: false
+      loading: true
     }
 
     this.loadCurrentlyLoggedInUser = this.loadCurrentlyLoggedInUser.bind(this);
@@ -33,10 +33,6 @@ class App extends Component {
   }
 
   loadCurrentlyLoggedInUser() {
-    this.setState({
-      loading: true
-    });
-
     getCurrentUser()
     .then(response => {
       this.setState({
