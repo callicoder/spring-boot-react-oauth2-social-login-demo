@@ -1,72 +1,65 @@
 package com.example.springsocial.security;
 
-import java.util.Date;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.oauth2.jwt.Jwt;
+import org.springframework.security.oauth2.jwt.JwtClaimsSet;
+import org.springframework.security.oauth2.jwt.JwtDecoder;
+import org.springframework.security.oauth2.jwt.JwtEncoder;
+import org.springframework.security.oauth2.jwt.JwtEncoderParameters;
 import org.springframework.stereotype.Service;
 
-import com.example.springsocial.config.AppProperties;
+import com.example.springsocial.config.properties.TokenProperties;
+import com.example.springsocial.model.User;
+import com.example.springsocial.util.JwtUtils;
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.ExpiredJwtException;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.MalformedJwtException;
-import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.SignatureException;
-import io.jsonwebtoken.UnsupportedJwtException;
+import lombok.RequiredArgsConstructor;
 
 @Service
+@RequiredArgsConstructor
 public class TokenProvider {
 
     private static final Logger logger = LoggerFactory.getLogger(TokenProvider.class);
 
-    private AppProperties appProperties;
+    private final JwtEncoder jwtEncoder;
+    private final JwtDecoder jwtDecoder;
 
-    public TokenProvider(AppProperties appProperties) {
-        this.appProperties = appProperties;
-    }
+    private final TokenProperties tokenProperties;
 
     public String createToken(Authentication authentication) {
-        UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
+        User userPrincipal = (User) authentication.getPrincipal();
+        Instant now = Instant.now();
 
-        Date now = new Date();
-        Date expiryDate = new Date(now.getTime() + appProperties.getAuth().getTokenExpirationMsec());
-
-        return Jwts.builder()
-                .setSubject(Long.toString(userPrincipal.getId()))
-                .setIssuedAt(new Date())
-                .setExpiration(expiryDate)
-                .signWith(SignatureAlgorithm.HS512, appProperties.getAuth().getTokenSecret())
-                .compact();
+        var jwtClaimsSet = JwtClaimsSet.builder()
+                .issuer("API Meu Egresso - UFPA")
+                .subject(userPrincipal.getUsername())
+                .issuedAt(now)
+                .expiresAt(now.plus(tokenProperties.getExpiresHours(), ChronoUnit.HOURS))
+                .claim(JwtUtils.NOME.getPropriedade(), userPrincipal.getName())
+                .claim(JwtUtils.USER_ID.getPropriedade(), userPrincipal.getId())
+                .claim(JwtUtils.SCOPE.getPropriedade(), authentication.getAuthorities());
+        return jwtEncoder.encode(JwtEncoderParameters.from(jwtClaimsSet.build())).getTokenValue();
     }
 
-    public Long getUserIdFromToken(String token) {
-        Claims claims = Jwts.parser()
-                .setSigningKey(appProperties.getAuth().getTokenSecret())
-                .parseClaimsJws(token)
-                .getBody();
-
-        return Long.parseLong(claims.getSubject());
+    public Integer getUserIdFromToken(String token) {
+        Jwt jwt = jwtDecoder.decode(token);
+        return Integer.parseInt(jwt.getClaim(JwtUtils.USER_ID.getPropriedade()).toString());
     }
 
     public boolean validateToken(String authToken) {
-        try {
-            Jwts.parser().setSigningKey(appProperties.getAuth().getTokenSecret()).parseClaimsJws(authToken);
-            return true;
-        } catch (SignatureException ex) {
-            logger.error("Invalid JWT signature");
-        } catch (MalformedJwtException ex) {
-            logger.error("Invalid JWT token");
-        } catch (ExpiredJwtException ex) {
-            logger.error("Expired JWT token");
-        } catch (UnsupportedJwtException ex) {
-            logger.error("Unsupported JWT token");
-        } catch (IllegalArgumentException ex) {
-            logger.error("JWT claims string is empty.");
-        }
-        return false;
+        return (!isTokenExpired(authToken));
     }
 
+    private boolean isTokenExpired(String token) {
+        Instant exp = jwtDecoder.decode(token).getExpiresAt();
+        if (exp != null) {
+            return exp.isBefore(Instant.now());
+        } else {
+            return true;
+        }
+    }
 }
