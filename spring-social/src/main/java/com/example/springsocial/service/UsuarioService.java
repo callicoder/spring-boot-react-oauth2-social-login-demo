@@ -1,4 +1,4 @@
-package com.example.springsocial.security;
+package com.example.springsocial.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -15,7 +15,7 @@ import com.example.springsocial.repository.UserRepository;
  */
 
 @Service
-public class CustomUserDetailsService implements UserDetailsService {
+public class UsuarioService implements UserDetailsService {
 
     @Autowired
     UserRepository userRepository;

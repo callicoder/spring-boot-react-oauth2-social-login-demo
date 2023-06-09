@@ -12,7 +12,7 @@ import com.example.springsocial.config.properties.CorsProperties;
 import com.example.springsocial.config.properties.OauthProperties;
 import com.example.springsocial.config.properties.RsaKeyProperties;
 import com.example.springsocial.config.properties.TokenProperties;
-import com.example.springsocial.security.CustomUserDetailsService;
+import com.example.springsocial.service.UsuarioService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -29,11 +29,11 @@ import lombok.RequiredArgsConstructor;
 		OauthProperties.class })
 public class ApplicationConfig {
 
-	private final CustomUserDetailsService customUserDetailsService;
+	private final UsuarioService usuarioService;
 
 	@Bean
 	public UserDetailsService userDetailsService() {
-		return customUserDetailsService;
+		return usuarioService;
 	}
 
 	@Bean

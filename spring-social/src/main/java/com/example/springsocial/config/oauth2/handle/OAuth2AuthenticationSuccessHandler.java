@@ -1,6 +1,6 @@
-package com.example.springsocial.security.oauth2;
+package com.example.springsocial.config.oauth2.handle;
 
-import static com.example.springsocial.security.oauth2.HttpCookieOAuth2AuthorizationRequestRepository.REDIRECT_URI_PARAM_COOKIE_NAME;
+import static com.example.springsocial.config.oauth2.HttpCookieOAuth2AuthorizationRequestRepository.REDIRECT_URI_PARAM_COOKIE_NAME;
 
 import java.io.IOException;
 import java.net.URI;
@@ -12,9 +12,10 @@ import org.springframework.security.web.authentication.SimpleUrlAuthenticationSu
 import org.springframework.stereotype.Component;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import com.example.springsocial.config.oauth2.HttpCookieOAuth2AuthorizationRequestRepository;
 import com.example.springsocial.config.properties.OauthProperties;
+import com.example.springsocial.config.security.TokenProvider;
 import com.example.springsocial.exception.BadRequestException;
-import com.example.springsocial.security.TokenProvider;
 import com.example.springsocial.util.CookieUtils;
 
 import jakarta.servlet.ServletException;

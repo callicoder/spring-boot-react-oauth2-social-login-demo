@@ -1,4 +1,4 @@
-package com.example.springsocial.security;
+package com.example.springsocial.config.security;
 
 import java.io.IOException;
 

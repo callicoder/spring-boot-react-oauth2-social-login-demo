@@ -4,7 +4,6 @@ import { Redirect } from 'react-router-dom'
 
 class OAuth2RedirectHandler extends Component {
     getUrlParameter(name) {
-        console.log(name)
         name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
         var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
 
@@ -15,6 +14,8 @@ class OAuth2RedirectHandler extends Component {
     render() {
         const token = this.getUrlParameter('token');
         const error = this.getUrlParameter('error');
+        console.log(token)
+        console.log(error)
 
         if(token) {
             localStorage.setItem(ACCESS_TOKEN, token);

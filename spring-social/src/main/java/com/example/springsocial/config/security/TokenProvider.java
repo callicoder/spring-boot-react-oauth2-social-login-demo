@@ -1,10 +1,8 @@
-package com.example.springsocial.security;
+package com.example.springsocial.config.security;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.oauth2.jwt.JwtClaimsSet;
@@ -22,8 +20,6 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class TokenProvider {
-
-    private static final Logger logger = LoggerFactory.getLogger(TokenProvider.class);
 
     private final JwtEncoder jwtEncoder;
     private final JwtDecoder jwtDecoder;

@@ -1,4 +1,4 @@
-package com.example.springsocial.security;
+package com.example.springsocial.annotation;
 
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import java.lang.annotation.*;

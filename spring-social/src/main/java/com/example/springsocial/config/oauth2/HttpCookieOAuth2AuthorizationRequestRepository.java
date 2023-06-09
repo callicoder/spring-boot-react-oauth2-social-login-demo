@@ -1,4 +1,6 @@
-package com.example.springsocial.security.oauth2;
+package com.example.springsocial.config.oauth2;
+
+import java.io.IOException;
 
 import org.springframework.security.oauth2.client.web.AuthorizationRequestRepository;
 import org.springframework.security.oauth2.core.endpoint.OAuth2AuthorizationRequest;
@@ -13,14 +15,24 @@ import jakarta.servlet.http.HttpServletResponse;
 @Component
 public class HttpCookieOAuth2AuthorizationRequestRepository
         implements AuthorizationRequestRepository<OAuth2AuthorizationRequest> {
+
     public static final String OAUTH2_AUTHORIZATION_REQUEST_COOKIE_NAME = "oauth2_auth_request";
+
     public static final String REDIRECT_URI_PARAM_COOKIE_NAME = "redirect_uri";
-    private static final int cookieExpireSeconds = 180;
+
+    private static final int COOKIE_EXPIRE_SECONDS = 180;
 
     @Override
     public OAuth2AuthorizationRequest loadAuthorizationRequest(HttpServletRequest request) {
         return CookieUtils.getCookie(request, OAUTH2_AUTHORIZATION_REQUEST_COOKIE_NAME)
-                .map(cookie -> CookieUtils.deserialize(cookie, OAuth2AuthorizationRequest.class))
+                .map(cookie -> {
+                    try {
+                        return CookieUtils.deserialize(cookie, OAuth2AuthorizationRequest.class);
+                    } catch (ClassNotFoundException | IOException e) {
+                        e.printStackTrace();
+                    }
+                    return null;
+                })
                 .orElse(null);
     }
 
@@ -33,11 +45,16 @@ public class HttpCookieOAuth2AuthorizationRequestRepository
             return;
         }
 
-        CookieUtils.addCookie(response, OAUTH2_AUTHORIZATION_REQUEST_COOKIE_NAME,
-                CookieUtils.serialize(authorizationRequest), cookieExpireSeconds);
+        try {
+            CookieUtils.addCookie(response, OAUTH2_AUTHORIZATION_REQUEST_COOKIE_NAME,
+                    CookieUtils.serialize(authorizationRequest), COOKIE_EXPIRE_SECONDS);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         String redirectUriAfterLogin = request.getParameter(REDIRECT_URI_PARAM_COOKIE_NAME);
         if (StringUtils.isNotBlank(redirectUriAfterLogin)) {
-            CookieUtils.addCookie(response, REDIRECT_URI_PARAM_COOKIE_NAME, redirectUriAfterLogin, cookieExpireSeconds);
+            CookieUtils.addCookie(response, REDIRECT_URI_PARAM_COOKIE_NAME, redirectUriAfterLogin,
+                    COOKIE_EXPIRE_SECONDS);
         }
     }
 

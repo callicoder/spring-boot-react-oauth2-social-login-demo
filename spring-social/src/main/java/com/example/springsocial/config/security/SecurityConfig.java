@@ -1,4 +1,4 @@
-package com.example.springsocial.config;
+package com.example.springsocial.config.security;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -21,11 +21,10 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import com.example.springsocial.security.TokenAuthenticationFilter;
-import com.example.springsocial.security.oauth2.CustomOAuth2UserService;
-import com.example.springsocial.security.oauth2.HttpCookieOAuth2AuthorizationRequestRepository;
-import com.example.springsocial.security.oauth2.OAuth2AuthenticationFailureHandler;
-import com.example.springsocial.security.oauth2.OAuth2AuthenticationSuccessHandler;
+import com.example.springsocial.config.oauth2.HttpCookieOAuth2AuthorizationRequestRepository;
+import com.example.springsocial.config.oauth2.handle.OAuth2AuthenticationFailureHandler;
+import com.example.springsocial.config.oauth2.handle.OAuth2AuthenticationSuccessHandler;
+import com.example.springsocial.config.oauth2.service.CustomOAuth2UserService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -73,6 +72,11 @@ public class SecurityConfig {
 				.anonymous(AbstractHttpConfigurer::disable)
 				.formLogin(forms -> forms.disable())
 				.httpBasic(basic -> basic.disable())
+				.sessionManagement(session -> session
+						.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+				.exceptionHandling(exeption -> exeption
+						.authenticationEntryPoint(
+								new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)))
 				.oauth2Login(oauth -> oauth.authorizationEndpoint(endpoint -> endpoint.baseUri(
 						"/oauth2/authorize").authorizationRequestRepository(
 								cookieAuthorizationRequestRepository()))
@@ -105,11 +109,6 @@ public class SecurityConfig {
 						.anyRequest().authenticated())
 				.addFilterBefore(tokenAuthenticationFilter(),
 						UsernamePasswordAuthenticationFilter.class)
-				.sessionManagement(session -> session
-						.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-				.exceptionHandling(exeption -> exeption
-						.authenticationEntryPoint(
-								new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)))
 				.build();
 
 	}
