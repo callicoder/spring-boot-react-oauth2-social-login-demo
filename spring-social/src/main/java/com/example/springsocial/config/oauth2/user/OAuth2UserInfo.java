@@ -1,11 +1,11 @@
-package com.example.springsocial.security.oauth2.user;
+package com.example.springsocial.config.oauth2.user;
 
 import java.util.Map;
 
-public abstract class OAuth2UserInfo {
+public abstract sealed class OAuth2UserInfo permits GoogleOAuth2UserInfo, GithubOAuth2UserInfo, FacebookOAuth2UserInfo {
     protected Map<String, Object> attributes;
 
-    public OAuth2UserInfo(Map<String, Object> attributes) {
+    protected OAuth2UserInfo(Map<String, Object> attributes) {
         this.attributes = attributes;
     }
 
