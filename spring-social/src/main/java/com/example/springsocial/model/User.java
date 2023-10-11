@@ -33,6 +33,7 @@ public class User {
     @Enumerated(EnumType.STRING)
     private AuthProvider provider;
 
+
     private String providerId;
 
     public Long getId() {
